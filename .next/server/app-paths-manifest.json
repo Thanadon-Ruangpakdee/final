@@ -1,0 +1,16 @@
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/category/[id]/route": "app/api/category/[id]/route.js",
+  "/api/category/route": "app/api/category/route.js",
+  "/api/product/[id]/route": "app/api/product/[id]/route.js",
+  "/api/customer/[id]/route": "app/api/customer/[id]/route.js",
+  "/api/product/route": "app/api/product/route.js",
+  "/api/customer/route": "app/api/customer/route.js",
+  "/customer/[id]/page": "app/customer/[id]/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/page": "app/page.js",
+  "/product/page": "app/product/page.js",
+  "/customer/page": "app/customer/page.js",
+  "/category/page": "app/category/page.js",
+  "/product/[id]/page": "app/product/[id]/page.js"
+}

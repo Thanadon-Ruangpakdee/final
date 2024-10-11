@@ -1,49 +1,50 @@
-// app/customers/[id]/page.js
+// app/customer/[id]/page.js
+"use client"; // Mark this component as a Client Component
+
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation"; // Change this import
 
 export default function CustomerDetail() {
-  const router = useRouter();
-  const { id } = router.query; // Get the customer ID from the URL
+  const router = useRouter(); // Now using next/navigation
+
   const [customer, setCustomer] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const { id } = router.query; // Assuming `id` is part of the query parameters
+
   useEffect(() => {
+    // Fetch customer details based on the `id`
+    const fetchCustomer = async () => {
+      try {
+        const response = await fetch(`/api/customers/${id}`);
+        const data = await response.json();
+        setCustomer(data);
+      } catch (error) {
+        console.error("Error fetching customer:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     if (id) {
-      const fetchCustomer = async () => {
-        const response = await fetch(`http://localhost:3000/api/customers/${id}`);
-        if (response.ok) {
-          const data = await response.json();
-          setCustomer(data); // Set the customer details
-        } else {
-          console.error("Failed to fetch customer");
-        }
-        setLoading(false); // Set loading to false after fetching
-      };
       fetchCustomer();
     }
   }, [id]);
 
-  if (loading) return <div>Loading...</div>; // Show loading state while fetching
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
-  if (!customer) return <div>Customer not found.</div>; // Show if customer not found
+  if (!customer) {
+    return <div>No customer found.</div>;
+  }
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold">Customer Details</h1>
-      <div className="mt-4">
-        <p><strong>Name:</strong> {customer.name}</p>
-        <p><strong>Email:</strong> {customer.email}</p>
-        <p><strong>Phone:</strong> {customer.phone}</p>
-        <p><strong>Address:</strong> {customer.address}</p>
-        <p><strong>Order:</strong> {customer.order}</p>
-      </div>
-      <button
-        onClick={() => router.back()}
-        className="mt-4 bg-gray-800 text-white py-2 px-4 rounded"
-      >
-        Back to Customer List
-      </button>
+    <div>
+      <h1>Customer Detail</h1>
+      <p>Name: {customer.name}</p>
+      <p>Email: {customer.email}</p>
+      {/* Render other customer details */}
     </div>
   );
 }

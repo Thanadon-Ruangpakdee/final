@@ -1,4 +1,3 @@
-import dbConnect from "@/lib/dbConnect"; // Your database connection utility
 import Customer from "@/models/Customer"; // Your Customer model
 
 // Connect to the database
